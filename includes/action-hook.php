@@ -17,7 +17,7 @@ foreach( $plugins_for_actions as $plugin_loc ){
 }
 
 //add_action( 'your_action_hook_name', 'test_saiful' );
-add_action( 'wpto_table_wrapper_bottom', 'wpt_code_snippet_export_textarea_on_bottom_table' );
+add_action( 'wpto_table_wrapper_bottom', 'wpt_code_snippet_export_textarea_on_bottom_table', 920 );
 function wpt_code_snippet_export_textarea_on_bottom_table( $table_id ){
         $post_id = $table_id;
     if( ! $post_id || ! is_numeric( $post_id ) ) return false;
