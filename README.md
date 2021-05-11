@@ -1,4 +1,2 @@
-# UltraAddons-addons
-A sample addons for Woo Product Table, UltraTable, UltraAddons any plugin
-
-Thanks for using
+# Code Snippet for Woo Product Table
+It's not for public, It's only for our demo site www.wooproducttable.com
