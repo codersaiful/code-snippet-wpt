@@ -36,7 +36,7 @@ function wpt_code_snippet_export_textarea_on_bottom_table( $table_id ){
         <div class="wpt-export-wrapper">
             <div class="wpt-export-area"> 
                 <label for="wpt-export-textarea-<?php echo esc_attr( $post_id ); ?>">
-                    <h2>Export Box - <?php echo esc_html( get_the_title( $post_id ) ); ?></i></h2>
+                    <h2>Export Box - <i><?php echo esc_html( get_the_title( $post_id ) ); ?></i></h2>
                     <p>
                         Copy the Export Code and paste to import box in Dashboard.<br>
                         <span>Import this <i><?php echo esc_html( get_the_title( $post_id ) ); ?></i> table by one click. </span>
