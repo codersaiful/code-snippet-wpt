@@ -1,3 +1,6 @@
-/**
-Only for FrontEnd
-*/
+.wpt-export-wrapper {
+    margin-top: 20px;
+}
+.wpt-export-wrapper .wpt-export-area label h2 {
+    font-weight: 500;
+}
