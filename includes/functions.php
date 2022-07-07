@@ -98,15 +98,33 @@ function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
    <input name="table_id" type="hidden" value="<?php echo esc_attr( $table_ID ); ?>">
   </form>
   <?php
+
+$meta = get_post_meta( $table_ID, 'table_style', true );
+// var_dump($meta);
 }
 add_action('wpto_action_table_wrapper_top', 'wpt_code_snippet_table_wrapper_top_callback');
 
 
-add_filter('wpto_table_template',function($template, $tbl_id){
-   if(isset($_GET['table_template']) && $_GET['table_template'] != 'default' && isset($_GET['table_id'])){
-      $template = $_GET['table_template'] ?? '';
-   }
-   return $template;
-},10, 2);
+// add_filter('wpto_table_template',function($template, $tbl_id){
+//    if(isset($_GET['table_template']) && $_GET['table_template'] != 'default' && isset($_GET['table_id'])){
+//       $template = $_GET['table_template'] ?? '';
+//    }
+//    return $template;
+// },10, 2);
 
-
+add_filter('get_post_metadata', 'wpt_change_meta_value',11, 5 );
+function wpt_change_meta_value($value, $object_id, $meta_key, $single, $meta_type){
+    $templ_change = isset($_GET['table_template']) && $_GET['table_template'] != 'default' ? true : false;
+    if( $meta_key !== 'table_style' ) return $value;
+    if( ! $templ_change ) return $value;
+    $template_name = $_GET['table_template'] ?? 'default';
+    // var_dump($value, $object_id, $meta_key, $single, $meta_type);
+    // $meta = get_post_meta( $object_id, 'table_style', true );
+    // if(isset($_GET['table_template']) && $_GET['table_template'] != 'default' && isset($_GET['table_id'])){
+    //     $template = $_GET['table_template'] ?? '';
+    //  }
+    $my_value = array(
+        0 => array('template'=>$template_name),
+    );
+    return $my_value;
+}
