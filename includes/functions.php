@@ -77,6 +77,9 @@ function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
          $value = $template['value'];
          $read_only = '';
          
+         if($type !== 'free'){
+            $value .= " (Premium)";
+         }
 
          
          $selected = $current_template == $key ? 'selected' : '';
