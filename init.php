@@ -7,7 +7,7 @@
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least:    4.0.0
  * Tested up to:         5.4.2
  * WC requires at least: 3.7
@@ -21,7 +21,7 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 if ( !defined( 'WPT_CODE_SNIPPET_ADDONS_VERSION' ) ) {
-    define( 'WPT_CODE_SNIPPET_ADDONS_VERSION', '1.0.0');
+    define( 'WPT_CODE_SNIPPET_ADDONS_VERSION', '1.0.1');
 }
 if( !defined( 'WPT_CODE_SNIPPET_ADDONS_CAPABILITY' ) ){
     $wpt_code_snippet_addons_capability = apply_filters( 'wpt_code_snippet_addons_menu_capability', 'manage_woocommerce' );
@@ -54,6 +54,8 @@ if ( !defined( 'WPT_CODE_SNIPPET_ADDONS_BASE_DIR' ) ) {
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
+//For compatibility with YITH product addons
+! defined('YITH_WAPO_SECRET_KEY') && define('YITH_WAPO_SECRET_KEY', true);
 
 //Including File
 include_once WPT_CODE_SNIPPET_ADDONS_BASE_DIR . '/includes/load-scripts.php';

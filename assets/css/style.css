@@ -4,3 +4,21 @@
 .wpt-export-wrapper .wpt-export-area label h2 {
     font-weight: 500;
 }
+.template-chose-area {
+    background: #ffffff;
+    padding: 25px 10px 12px 32px;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 11px #0000002b;
+    border-top: 1px solid #dfdfdf;
+    font-size: 17px;
+    color: #607d8b;
+}
+.template-chose-area form {
+    margin-bottom: 0.618em;
+    display: flex;
+    align-items: center;
+}
+.temp-chose-description {
+    padding-left: 10px;
+}
+.template-chose-area label{padding-right: 10px;}

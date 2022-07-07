@@ -17,3 +17,110 @@ add_filter( 'filter_hook_name', 'wpt_code_snippet_addons_sample_function' );
  * Normally write Filter here, for action, an another file name action-hook.php file is available to this same directory
  * 
  */
+function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
+
+   $templates_default = array(
+     'none'          =>  __( 'Select None', 'wpt_pro' ),
+     'default'       =>  __( 'Default Style', 'wpt_pro' ),
+     'beautiful_blacky' =>  __( 'Beautiful Blacky', 'wpt_pro' ),
+ );
+ $pro_templates = array(
+     'smart'         =>  __( 'Smart Thin', 'wpt_pro' ),
+     'green'         =>  __( 'Green Style', 'wpt_pro' ),
+     'blue'          =>  __( 'Blue Style', 'wpt_pro' ),
+     'dark'          =>  __( 'Dark Style', 'wpt_pro' ),
+     'smart_light'   =>  __( 'Smart Light', 'wpt_pro' ),
+     'classic'           =>  __( 'Classic', 'wpt_pro' ),    
+    'blue_border'       =>  __( 'Blue Border', 'wpt_pro' ),
+    'smart_border'      =>  __( 'Smart Border', 'wpt_pro' ), 
+    'pink'              =>  __( 'Pink Style', 'wpt_pro' ),  
+    'modern'            =>  __( 'Modern Style', 'wpt_pro' ),  
+    'orange'            =>  __( 'Orange Style', 'wpt_pro' ),   
+ );
+ $additional_templates = array();
+ $additional_templates = apply_filters( 'wpto_table_template_arr', $additional_templates );
+
+ $table_templates = array();
+ foreach( $templates_default as $temp_key => $tempplate_name ){
+     $table_templates[$temp_key] = array(
+         'type' => 'free',
+         'value' => $tempplate_name
+     );
+ }
+ foreach( $pro_templates as $temp_key => $tempplate_name ){
+     $table_templates[$temp_key] = array(
+         'type' => 'limited',
+         'value' => $tempplate_name
+     );
+ }
+ if( is_array( $additional_templates ) ){
+     foreach( $additional_templates as $temp_key => $tempplate_name ){
+         $table_templates[$temp_key] = array(
+             'type' => 'approved',
+             'value' => $tempplate_name
+         );
+     }
+ }
+
+ $meta_table_style_inPost = get_post_meta($table_ID, 'table_style', true);
+ 
+ $tamplates_name = array_map(function($temp){
+    return $temp['value'];
+ },$table_templates);
+unset($tamplates_name['none']);
+ $current_template = $meta_table_style_inPost['template'] ?? '';
+ $current_template = $_GET['table_template'] ?? $current_template;
+  ?>
+  <div class="template-chose-area">
+    <form method="get">
+        <label class="wpt_label" for="wpt_style_file_selection">Check Templates</label>
+        <select name="table_template" data-name="template" class="wpt-table-template-changer-live">
+            <?php
+            foreach ( $table_templates as $key => $template ) {
+                $type = $template['type'];
+                $value = $template['value'];
+                $read_only = '';
+                
+                if($type !== 'free'){
+                    $value .= " (Premium)";
+                }
+
+                
+                $selected = $current_template == $key ? 'selected' : '';
+            ?>
+            <option
+            value="<?php echo esc_attr( $key ); ?>"
+            <?php echo esc_attr( $selected ); ?>
+            <?php echo esc_attr( $read_only ); ?>
+            >
+                <?php echo esc_html( $value ); ?>
+            </option>
+            <?php 
+            }
+            ?>
+        </select>
+        <div class="temp-chose-description"> Change template from dropdown to check our available template's design.</div>
+        <input name="table_id" type="hidden" value="<?php echo esc_attr( $table_ID ); ?>">
+    </form>
+
+    
+  </div>
+  
+  <?php
+
+}
+add_action('wpto_action_table_wrapper_top', 'wpt_code_snippet_table_wrapper_top_callback');
+
+
+add_filter('get_post_metadata', 'wpt_change_meta_value',11, 5 );
+function wpt_change_meta_value($value, $object_id, $meta_key, $single, $meta_type){
+    $templ_change = isset($_GET['table_template']) && $_GET['table_template'] != 'default' ? true : false;
+    if( $meta_key !== 'table_style' ) return $value;
+    if( ! $templ_change ) return $value;
+    $template_name = $_GET['table_template'] ?? 'default';
+
+    $my_value = array(
+        0 => array('template'=>$template_name),
+    );
+    return $my_value;
+}
