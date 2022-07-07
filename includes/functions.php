@@ -30,7 +30,12 @@ function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
      'blue'          =>  __( 'Blue Style', 'wpt_pro' ),
      'dark'          =>  __( 'Dark Style', 'wpt_pro' ),
      'smart_light'   =>  __( 'Smart Light', 'wpt_pro' ),
-     'custom'       =>  __( 'Customized Design', 'wpt_pro' ),
+     'classic'           =>  __( 'Classic', 'wpt_pro' ),    
+    'blue_border'       =>  __( 'Blue Border', 'wpt_pro' ),
+    'smart_border'      =>  __( 'Smart Border', 'wpt_pro' ), 
+    'pink'              =>  __( 'Pink Style', 'wpt_pro' ),  
+    'modern'            =>  __( 'Modern Style', 'wpt_pro' ),  
+    'orange'            =>  __( 'Orange Style', 'wpt_pro' ),   
  );
  $additional_templates = array();
  $additional_templates = apply_filters( 'wpto_table_template_arr', $additional_templates );
@@ -58,7 +63,8 @@ function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
  }
 
  $meta_table_style_inPost = get_post_meta($table_ID, 'table_style', true);
-
+ 
+ 
  $current_template = $meta_table_style_inPost['template'] ?? '';
  $current_template = $_GET['table_template'] ?? $current_template;
   ?>
@@ -71,14 +77,6 @@ function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
          $value = $template['value'];
          $read_only = '';
          
-         // if( $type == 'limited' ){
-             
-         //     $read_only = 'disabled'; // smart_light_wrapper beautiful_blacky_wrapper 
-         // }
-         
-         // if( $type !== 'free' ){
-         //     $value .= " " . __( '(Premium)', 'wpt_pro' );
-         // }
 
          
          $selected = $current_template == $key ? 'selected' : '';
