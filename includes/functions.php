@@ -18,6 +18,7 @@ add_filter( 'filter_hook_name', 'wpt_code_snippet_addons_sample_function' );
  * 
  */
 function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
+if(is_product()) return;
 
    $templates_default = array(
      'none'          =>  __( 'Select None', 'wpt_pro' ),
