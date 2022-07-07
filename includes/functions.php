@@ -64,53 +64,53 @@ function wpt_code_snippet_table_wrapper_top_callback( $table_ID ){
 
  $meta_table_style_inPost = get_post_meta($table_ID, 'table_style', true);
  
- 
+ $tamplates_name = array_map(function($temp){
+    return $temp['value'];
+ },$table_templates);
+unset($tamplates_name['none']);
  $current_template = $meta_table_style_inPost['template'] ?? '';
  $current_template = $_GET['table_template'] ?? $current_template;
   ?>
-  <form method="get">
-   <label class="wpt_label" for="wpt_style_file_selection"><?php esc_html_e( 'Select Template', 'wpt_pro' ); ?></label>
-   <select name="table_template" data-name="template" class="wpt-table-template-changer-live">
-     <?php
-       foreach ( $table_templates as $key => $template ) {
-         $type = $template['type'];
-         $value = $template['value'];
-         $read_only = '';
-         
-         if($type !== 'free'){
-            $value .= " (Premium)";
-         }
+  <div class="template-chose-area">
+    <form method="get">
+        <label class="wpt_label" for="wpt_style_file_selection">Check Templates</label>
+        <select name="table_template" data-name="template" class="wpt-table-template-changer-live">
+            <?php
+            foreach ( $table_templates as $key => $template ) {
+                $type = $template['type'];
+                $value = $template['value'];
+                $read_only = '';
+                
+                if($type !== 'free'){
+                    $value .= " (Premium)";
+                }
 
-         
-         $selected = $current_template == $key ? 'selected' : '';
-     ?>
-     <option
-     value="<?php echo esc_attr( $key ); ?>"
-     <?php echo esc_attr( $selected ); ?>
-     <?php echo esc_attr( $read_only ); ?>
-     >
-         <?php echo esc_html( $value ); ?>
-     </option>
-     <?php 
-     }
-     ?>
-   </select>
-   <input name="table_id" type="hidden" value="<?php echo esc_attr( $table_ID ); ?>">
-  </form>
+                
+                $selected = $current_template == $key ? 'selected' : '';
+            ?>
+            <option
+            value="<?php echo esc_attr( $key ); ?>"
+            <?php echo esc_attr( $selected ); ?>
+            <?php echo esc_attr( $read_only ); ?>
+            >
+                <?php echo esc_html( $value ); ?>
+            </option>
+            <?php 
+            }
+            ?>
+        </select>
+        <div class="temp-chose-description"> Change template from dropdown to check our available template's design.</div>
+        <input name="table_id" type="hidden" value="<?php echo esc_attr( $table_ID ); ?>">
+    </form>
+
+    
+  </div>
+  
   <?php
 
-$meta = get_post_meta( $table_ID, 'table_style', true );
-// var_dump($meta);
 }
 add_action('wpto_action_table_wrapper_top', 'wpt_code_snippet_table_wrapper_top_callback');
 
-
-// add_filter('wpto_table_template',function($template, $tbl_id){
-//    if(isset($_GET['table_template']) && $_GET['table_template'] != 'default' && isset($_GET['table_id'])){
-//       $template = $_GET['table_template'] ?? '';
-//    }
-//    return $template;
-// },10, 2);
 
 add_filter('get_post_metadata', 'wpt_change_meta_value',11, 5 );
 function wpt_change_meta_value($value, $object_id, $meta_key, $single, $meta_type){
@@ -118,11 +118,7 @@ function wpt_change_meta_value($value, $object_id, $meta_key, $single, $meta_typ
     if( $meta_key !== 'table_style' ) return $value;
     if( ! $templ_change ) return $value;
     $template_name = $_GET['table_template'] ?? 'default';
-    // var_dump($value, $object_id, $meta_key, $single, $meta_type);
-    // $meta = get_post_meta( $object_id, 'table_style', true );
-    // if(isset($_GET['table_template']) && $_GET['table_template'] != 'default' && isset($_GET['table_id'])){
-    //     $template = $_GET['table_template'] ?? '';
-    //  }
+
     $my_value = array(
         0 => array('template'=>$template_name),
     );
