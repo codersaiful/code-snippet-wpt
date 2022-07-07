@@ -21,7 +21,7 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 if ( !defined( 'WPT_CODE_SNIPPET_ADDONS_VERSION' ) ) {
-    define( 'WPT_CODE_SNIPPET_ADDONS_VERSION', '1.0.0');
+    define( 'WPT_CODE_SNIPPET_ADDONS_VERSION', '1.0.1');
 }
 if( !defined( 'WPT_CODE_SNIPPET_ADDONS_CAPABILITY' ) ){
     $wpt_code_snippet_addons_capability = apply_filters( 'wpt_code_snippet_addons_menu_capability', 'manage_woocommerce' );
